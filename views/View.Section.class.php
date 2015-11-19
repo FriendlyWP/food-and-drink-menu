@@ -125,11 +125,14 @@ class fdmViewSection extends fdmView {
 	 * @since 1.1
 	 */
 	public function set_classes( $classes = array() ) {
+		$section = get_term( $this->id, 'fdm-menu-section' );
+		$this->slug = $section->slug;
 		$classes = array_merge(
 			$classes,
 			array(
 				'fdm-section',
-				'fdm-sectionid-' . $this->id
+				'fdm-sectionid-' . $this->id,
+				'section-' . $this->slug
 			)
 		);
 

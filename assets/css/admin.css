@@ -34,16 +34,18 @@
  * Menu Organizer
  ****************/
 #fdm-menu-column-one,
-#fdm-menu-column-two {
-	width: 48%;
+#fdm-menu-column-two, 
+#fdm-menu-column-three {
+	width: 32%;
 	border: 1px solid #ccc;
 	border-radius: 3px;
+	float:left;
 }
 #fdm-menu-column-one {
 	float: left;
 }
 #fdm-menu-column-two {
-	float: right;
+	
 }
 #fdm-menu-organizer .fdm-column {
 	float: left;

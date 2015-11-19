@@ -20,19 +20,22 @@
 .fdm-section>li {
 	list-style: none;
 }
-.fdm-columns-2 .fdm-column {
-	width: 47%;
-	float: left;
-}
+
 .fdm-menu .fdm-column {
+	width:100%;
+	float:left;
 	margin: 0 3% 0 0;
 }
-.fdm-columns-1  .fdm-column {
-	margin-right: 0;
+.fdm-columns-2 .fdm-column {
+	width: 47%;
 }
-.fdm-columns-2 .fdm-column-last {
-	float: right;
-	margin: 0 0 0 3%;
+
+.fdm-columns-3 .fdm-column {
+	width:31.1333%;
+}
+
+.fdm-menu .fdm-column-last {
+	margin: 0;
 }
 .fdm-section-header {
 	border-bottom: 1px solid #333;

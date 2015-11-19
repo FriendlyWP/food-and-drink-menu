@@ -72,7 +72,7 @@ class fdmViewMenu extends fdmView {
 	 */
 	public function get_groups() {
 
-		$cols = array( 'one', 'two' );
+		$cols = array( 'one', 'two', 'three' );
 		foreach ( $cols as $key => $col_num ) {
 			$col = get_post_meta( $this->id, 'fdm_menu_column_' . $col_num, true );
 			if ( trim( $col ) == '' ) {

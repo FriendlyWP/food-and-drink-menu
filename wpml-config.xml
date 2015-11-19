@@ -10,6 +10,7 @@
     <custom-field action="translate">fdm_item_price</custom-field>
     <custom-field action="copy">fdm_menu_column_one</custom-field>
     <custom-field action="copy">fdm_menu_column_two</custom-field>
+    <custom-field action="copy">fdm_menu_column_three</custom-field>
     <custom-field action="translate">fdm_menu_footer_content</custom-field>
   </custom-fields>
 </wpml-config>

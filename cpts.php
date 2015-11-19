@@ -297,6 +297,7 @@ class fdmCustomPostTypes {
 		global $post;
 		$column_one = get_post_meta( $post->ID, 'fdm_menu_column_one', true );
 		$column_two = get_post_meta( $post->ID, 'fdm_menu_column_two', true );
+		$column_three = get_post_meta( $post->ID, 'fdm_menu_column_three', true );
 
 		// Retrieve sections and store in HTML lists
 		$terms = get_terms( 'fdm-menu-section', array( 'hide_empty' => false ) );
@@ -308,6 +309,7 @@ class fdmCustomPostTypes {
 
 			<input type="hidden" id="fdm_menu_column_one" name="fdm_menu_column_one" value="<?php echo $column_one; ?>">
 			<input type="hidden" id="fdm_menu_column_two" name="fdm_menu_column_two" value="<?php echo $column_two; ?>">
+			<input type="hidden" id="fdm_menu_column_three" name="fdm_menu_column_three" value="<?php echo $column_three; ?>">
 
 			<p><?php echo __( 'Click on a Menu Section to add it to this menu.', FDM_TEXTDOMAIN ); ?></p>
 
@@ -329,16 +331,32 @@ class fdmCustomPostTypes {
 				</div>
 
 				<div id="fdm-menu-column-two">
+					
+					<div class="fdm-column fdm-options">
+						<h4><?php echo __( 'Menu Sections', FDM_TEXTDOMAIN ); ?></h4>
+						<ul>
+							<?php echo $sections_list; ?>
+						</ul>
+					</div>
 					<div class="fdm-column fdm-added">
 						<h4><?php echo __( 'Second Column', FDM_TEXTDOMAIN ); ?></h4>
 						<ul>
 						<!-- List filled with values on page load. see admin.js -->
 						</ul>
 					</div>
+				</div>
+
+				<div id="fdm-menu-column-three">
 					<div class="fdm-column fdm-options">
 						<h4><?php echo __( 'Menu Sections', FDM_TEXTDOMAIN ); ?></h4>
 						<ul>
 							<?php echo $sections_list; ?>
+						</ul>
+					</div>
+					<div class="fdm-column fdm-added">
+						<h4><?php echo __( 'Third Column', FDM_TEXTDOMAIN ); ?></h4>
+						<ul>
+						<!-- List filled with values on page load. see admin.js -->
 						</ul>
 					</div>
 				</div>
@@ -473,6 +491,7 @@ class fdmCustomPostTypes {
 
 			$meta_ids['fdm_menu_column_one'] = 'sanitize_text_field';
 			$meta_ids['fdm_menu_column_two'] = 'sanitize_text_field';
+			$meta_ids['fdm_menu_column_three'] = 'sanitize_text_field';
 			$meta_ids['fdm_menu_footer_content'] = 'wp_kses_post';
 
 		}
@@ -573,7 +592,7 @@ class fdmCustomPostTypes {
 		}
 
 		$screen = get_current_screen();
-		if ( is_object( $screen ) && $screen->post_type == 'fdm-menu-item' ) {
+		if ( $screen->post_type == 'fdm-menu-item' ) {
 
 			$terms = get_terms( 'fdm-menu-section' );
 
@@ -602,7 +621,7 @@ class fdmCustomPostTypes {
 		}
 
 		$screen = get_current_screen();
-		if ( is_object( $screen ) && $screen->post_type == FDM_MENUITEM_POST_TYPE && !empty( $_GET['section'] ) ) {
+		if ( $screen->post_type == FDM_MENUITEM_POST_TYPE && !empty( $_GET['section'] ) ) {
 			$section = (int) $_GET['section'];
 
 			// Get menu items not assigned to any section
@@ -659,33 +678,39 @@ class fdmCustomPostTypes {
 
 			$col1 = !empty( $post_meta['fdm_menu_column_one'] ) ? array_filter( explode( ',', $post_meta['fdm_menu_column_one'][0] ) ) : array();
 			$col2 = !empty( $post_meta['fdm_menu_column_two'] ) ? array_filter( explode( ',', $post_meta['fdm_menu_column_two'][0] ) ) : array();
+			$col3 = !empty( $post_meta['fdm_menu_column_three'] ) ? array_filter( explode( ',', $post_meta['fdm_menu_column_three'][0] ) ) : array();
 
-			if ( !empty( $col1 ) || !empty( $col2 ) ) :
-				$terms = get_terms( 'fdm-menu-section', array( 'include' => array_merge( $col1, $col2 ), 'fields' => 'id=>name' ) );
+			if ( !empty( $col1 ) || !empty( $col2 ) || !empty( $col3 )  ) :
+				$terms = get_terms( 'fdm-menu-section', array( 'include' => array_merge( $col1, $col2, $col3 ), 'fields' => 'id=>name' ) );
 				?>
 
 				<table class="fdm-cols">
 					<tr>
 						<td>
 					<?php foreach( $col1 as $id ) : ?>
-						<?php if ( isset( $terms[ $id ] ) ) : ?>
 							<p>
 								<a href="<?php echo admin_url( 'edit-tags.php?action=edit&taxonomy=fdm-menu-section&tag_ID=' . $id . '&post_type=fdm-menu-item' ); ?>">
 								<?php echo $terms[ $id ]; ?>
 								</a>
 							</p>
-						<?php endif; ?>
 					<?php endforeach; ?>
 						</td>
 						<td>
 					<?php foreach( $col2 as $id ) : ?>
-						<?php if ( isset( $terms[ $id ] ) ) : ?>
 							<p>
 								<a href="<?php echo admin_url( 'edit-tags.php?action=edit&taxonomy=fdm-menu-section&tag_ID=' . $id . '&post_type=fdm-menu-item' ); ?>">
 									<?php echo $terms[ $id ]; ?>
 								</a>
 							</p>
-						<?php endif; ?>
+					<?php endforeach; ?>
+						</td>
+						<td>
+					<?php foreach( $col3 as $id ) : ?>
+							<p>
+								<a href="<?php echo admin_url( 'edit-tags.php?action=edit&taxonomy=fdm-menu-section&tag_ID=' . $id . '&post_type=fdm-menu-item' ); ?>">
+									<?php echo $terms[ $id ]; ?>
+								</a>
+							</p>
 					<?php endforeach; ?>
 						</td>
 					</tr>

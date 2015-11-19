@@ -96,7 +96,7 @@
  ********************************************************/
 @media (max-width: 991px) {
 
-	 .fdm-columns-2 .fdm-column {
+	 .fdm-columns-2 .fdm-column, .fdm-columns-3 .fdm-column {
 		width: 100%;
 		float: none;
 		margin: 0;
